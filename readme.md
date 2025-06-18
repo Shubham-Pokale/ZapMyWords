@@ -1,3 +1,3 @@
-![ZapMyWord Home Pagae](static\img\ZapMyWord.png)
+![ZapMyWord Home Page](img\ZapMyWord.png)
 
 ## A blog web application
