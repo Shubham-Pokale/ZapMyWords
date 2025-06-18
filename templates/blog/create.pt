@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+<head>
+    <title>Create New Post</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="mb-4">Create New Post</h1>
+
+                <div tal:condition="error" class="alert alert-danger" tal:content="error">
+                    Error message
+                </div>
+
+                <form method="post" action="/blog/create">
+                    <div class="form-group mb-3">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" 
+                               tal:attributes="value title" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="content">Content</label>
+                        <textarea class="form-control" id="content" name="content" 
+                                  rows="10" tal:content="content" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Post</button>
+                    <a href="/blog" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

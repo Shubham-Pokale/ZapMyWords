@@ -1,0 +1,45 @@
+<metal:main fill-slot="main_content" xmlns:metal="http://xml.zope.org/namespaces/metal"
+            xmlns:tal="http://xml.zope.org/namespaces/tal"
+            xmlns:pt="http://xml.zope.org/namespaces/tal">
+
+  <metal:layout use-macro="load:shared/_layout.pt">
+    <metal:title fill-slot="title">Blog</metal:title>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="mb-4">Blog Posts</h1>
+
+                <div class="mb-4" tal:condition="user">
+                    <a href="/blog/create" class="btn btn-primary">Create New Post</a>
+                </div>
+
+                <tal:posts condition="posts">
+                    <tal:loop repeat="post posts">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title">
+                                    <a href="/blog/${post.id}" class="text-decoration-none" 
+                                       tal:content="post.title">Post Title</a>
+                                </h2>
+                                <p class="card-text text-muted">
+                                    By <span tal:content="post.author.name">Author Name</span>
+                                    on <span tal:content="post.created_date.strftime('%B %d, %Y')">Date</span>
+                                </p>
+                                <p class="card-text" tal:content="post.content[:200] + '...'">Post preview...</p>
+                                <a href="/blog/${post.id}" class="btn btn-outline-primary">Read More</a>
+                            </div>
+                        </div>
+                    </tal:loop>
+                </tal:posts>
+
+                <div class="alert alert-info" tal:condition="not:posts">
+                    No posts available yet.
+                </div>
+
+            </div>
+        </div>
+    </div>
+  </metal:layout>
+
+</metal:main>

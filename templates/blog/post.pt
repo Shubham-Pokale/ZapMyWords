@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+<head>
+    <title tal:content="post.title">Post Title</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div tal:condition="error" class="alert alert-danger" tal:content="error">
+                    Error message
+                </div>
+                <div tal:condition="not:error">
+                    <article class="blog-post">
+                        <h1 class="mb-3" tal:content="post.title">Post Title</h1>
+                        <p class="text-muted">
+                            By <span tal:content="post.author.name">Author Name</span> 
+                            on <span tal:content="post.created_date.strftime('%B %d, %Y')">Date</span>
+                        </p>
+                        <div class="blog-content" tal:content="post.content">
+                            Post content
+                        </div>
+                    </article>
+
+                    <div tal:condition="user" class="mt-4">
+                        <h3>Comments</h3>
+                        <form method="post" action="/blog/${post.id}/comment">
+                            <div class="form-group">
+                                <textarea name="content" class="form-control" rows="3" placeholder="Write a comment..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Post Comment</button>
+                        </form>
+                    </div>
+
+                    <div tal:condition="post.comments" class="mt-4">
+                        <div tal:repeat="comment post.comments" class="card mb-2">
+                            <div class="card-body">
+                                <p class="card-text" tal:content="comment.content">Comment content</p>
+                                <p class="card-text text-muted">
+                                    By <span tal:content="comment.author.name">Comment Author</span> 
+                                    on <span tal:content="comment.created_date.strftime('%B %d, %Y')">Comment Date</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
